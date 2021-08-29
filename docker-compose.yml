@@ -1,0 +1,27 @@
+version: '3.5'
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: ./dev.Dockerfile
+    volumes: 
+      - .:/var/www/gateway
+    restart: always
+    hostname: midia
+    env_file:
+      - .env
+    networks:
+      - backend
+  midia:
+    build: .
+    restart: always
+    hostname: midia
+    env_file:
+      - .env
+    networks:
+      - backend
+      
+networks:
+  backend:
+    external:
+      name: cartografia-network
