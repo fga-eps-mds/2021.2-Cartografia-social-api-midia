@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MidiaController } from './midia.controller';
-import { MidiaService } from './midia.service';
+import { MidiaController } from '../../src/midia/midia.controller';
+import { MidiaService } from '../../src/midia/midia.service';
 
 describe('MidiaController', () => {
   let controller: MidiaController;
