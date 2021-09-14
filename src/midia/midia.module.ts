@@ -4,6 +4,6 @@ import { MidiaController } from './midia.controller';
 
 @Module({
   controllers: [MidiaController],
-  providers: [MidiaService]
+  providers: [MidiaService],
 })
 export class MidiaModule {}

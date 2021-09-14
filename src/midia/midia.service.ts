@@ -5,7 +5,7 @@ import { UpdateMidiaDto } from './dto/update-midia.dto';
 @Injectable()
 export class MidiaService {
   create(createMidiaDto: CreateMidiaDto) {
-    return 'This action adds a new midia';
+    return `This action adds a new midia ${createMidiaDto}`;
   }
 
   findAll() {
@@ -17,7 +17,7 @@ export class MidiaService {
   }
 
   update(id: number, updateMidiaDto: UpdateMidiaDto) {
-    return `This action updates a #${id} midia`;
+    return `This action updates a #${id} #${updateMidiaDto} midia`;
   }
 
   remove(id: number) {
