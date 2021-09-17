@@ -6,7 +6,7 @@ import { ConfigService } from 'src/config/configuration';
 @Injectable()
 export class Cloudinary {
 
-    constructor(@Inject('CONFIG') private configService: ConfigService) {
+    constructor(@Inject('CONFIG') configService: ConfigService) {
         v2.config(configService.get('cloudinary'));
     };
 

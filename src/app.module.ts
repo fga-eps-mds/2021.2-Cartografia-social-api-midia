@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     ConfigModule.forRoot({
+      envFilePath: ['.cloudinary.env'],
       isGlobal: true,
     }),
     MidiaModule],

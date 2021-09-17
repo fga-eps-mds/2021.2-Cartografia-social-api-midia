@@ -11,6 +11,7 @@ services:
       - 9225:9225
     env_file:
       - .env
+      - .cloudinary.env
     networks:
       - backend
   midia-dev:
@@ -21,6 +22,7 @@ services:
     hostname: midia
     env_file:
       - .env
+      - .cloudinary.env
     networks:
       - backend
 
