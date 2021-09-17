@@ -6,7 +6,12 @@ describe('CloudinaryService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [Cloudinary],
+      providers: [
+        {
+          provide: Cloudinary,
+          useValue: jest.fn(),
+        },
+      ],
     }).compile();
 
     service = module.get<Cloudinary>(Cloudinary);
