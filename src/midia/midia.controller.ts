@@ -1,31 +1,25 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { MidiaService } from './midia.service';
-import { CreateMidiaDto } from './dto/create-midia.dto';
-import { UpdateMidiaDto } from './dto/update-midia.dto';
+import { Cloudinary } from 'src/cloudinary/cloudinary';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ReceiveFileDto } from './dto/receiveFile.dto';
 
 @Controller()
 export class MidiaController {
-  constructor(private readonly midiaService: MidiaService) {}
+  constructor(
+    private readonly midiaService: MidiaService,
+    private readonly ICloudinary: Cloudinary
+  ) { }
 
-  @MessagePattern('createMidia')
-  create(@Payload() createMidiaDto: CreateMidiaDto) {
-    return this.midiaService.create(createMidiaDto);
-  }
+  @MessagePattern('uploadMidia')
+  async uploadFile(receivedFile: any) {
 
-  @MessagePattern('findAllMidia')
-  findAll() {
-    return this.midiaService.findAll();
-  }
+    const decodedFile = new ReceiveFileDto(receivedFile);
 
-  @MessagePattern('findOneMidia')
-  findOne(@Payload() id: number) {
-    return this.midiaService.findOne(id);
-  }
+    const response = await this.ICloudinary.upload(decodedFile.file);
 
-  @MessagePattern('updateMidia')
-  update(@Payload() updateMidiaDto: UpdateMidiaDto) {
-    return this.midiaService.update(updateMidiaDto.id, updateMidiaDto);
+    return response;
   }
 
   @MessagePattern('removeMidia')
