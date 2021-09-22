@@ -1,23 +1,26 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { Cloudinary } from '../../src/cloudinary/cloudinary';
+import { ConfigService } from '../../src/config/configuration';
 
-describe('CloudinaryService', () => {
-  let service: Cloudinary;
+describe('Cloudinary', () => {
+  let helper: Cloudinary;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+  const customModule = async () => {
+    return Test.createTestingModule({
       providers: [
+        Cloudinary,
         {
-          provide: Cloudinary,
-          useValue: jest.fn(),
+          provide: 'CONFIG',
+          useClass: ConfigService,
         },
       ],
     }).compile();
+  };
 
-    service = module.get<Cloudinary>(Cloudinary);
-  });
+  it('should be defined', async () => {
+    const module = await customModule();
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+    helper = module.get<Cloudinary>(Cloudinary);
+    expect(helper).toBeDefined();
   });
 });
