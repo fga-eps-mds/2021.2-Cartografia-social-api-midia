@@ -3,6 +3,7 @@ import { Cloudinary } from '../../src/cloudinary/cloudinary';
 import { ConfigService } from '../../src/config/configuration';
 import {
   ResponseCallback,
+  UploadApiOptions,
   UploadApiResponse,
   UploadResponseCallback,
   UploadStream,
@@ -114,10 +115,12 @@ describe('Cloudinary', () => {
 
     jest
       .spyOn(v2.uploader, 'upload_stream')
-      .mockImplementation((callback?: UploadResponseCallback) => {
-        callback(null, response);
-        return new UploadStream();
-      });
+      .mockImplementation(
+        (options?: UploadApiOptions, callback?: UploadResponseCallback) => {
+          callback(null, response);
+          return new UploadStream();
+        },
+      );
     helper = module.get<Cloudinary>(Cloudinary);
     expect(await helper.upload(fileDto)).toStrictEqual(response);
   });
@@ -127,17 +130,19 @@ describe('Cloudinary', () => {
 
     jest
       .spyOn(v2.uploader, 'upload_stream')
-      .mockImplementation((callback?: UploadResponseCallback) => {
-        callback(
-          {
-            message: 'erro',
-            name: 'erro',
-            http_code: 1,
-          },
-          null,
-        );
-        return new UploadStream();
-      });
+      .mockImplementation(
+        (options?: UploadApiOptions, callback?: UploadResponseCallback) => {
+          callback(
+            {
+              message: 'erro',
+              name: 'erro',
+              http_code: 1,
+            },
+            null,
+          );
+          return new UploadStream();
+        },
+      );
 
     helper = module.get<Cloudinary>(Cloudinary);
 
