@@ -1,7 +1,6 @@
 import { Controller } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import { MessagePattern } from '@nestjs/microservices';
 import { MidiaService } from './midia.service';
-import { Cloudinary } from '../cloudinary/cloudinary';
 import { ReceiveFileDto } from './dto/receiveFile.dto';
 
 @Controller()
