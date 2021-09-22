@@ -6,22 +6,19 @@ import { ReceiveFileDto } from './dto/receiveFile.dto';
 
 @Controller()
 export class MidiaController {
-  constructor(
-    private readonly midiaService: MidiaService,
-    private readonly ICloudinary: Cloudinary,
-  ) {}
+  constructor(private readonly midiaService: MidiaService) {}
 
   @MessagePattern('uploadMidia')
   async uploadFile(receivedFile: any) {
     const decodedFile = new ReceiveFileDto(receivedFile);
 
-    const response = await this.ICloudinary.upload(decodedFile.file);
+    const response = await this.midiaService.create(decodedFile.file);
 
     return response;
   }
 
   @MessagePattern('removeMidia')
-  remove(@Payload() id: number) {
-    return this.midiaService.remove(id);
+  remove(file: any) {
+    return this.midiaService.remove(file.id);
   }
 }

@@ -25,7 +25,9 @@ export class Cloudinary {
   async delete(fileId: string) {
     return new Promise((resolve, reject) => {
       v2.uploader.destroy(fileId, (error, result) => {
-        if (error) return reject(error);
+        if (error) {
+          return reject(error);
+        }
         resolve(result);
       });
     });

@@ -6,13 +6,10 @@ import { MicrosserviceException } from '../commons/exceptions/MicrosserviceExcep
 export class MidiaService {
   constructor(private cloudinary: Cloudinary) {}
 
-  async create(fileTransferable) {
-    console.log(fileTransferable);
+  async create(fileTransferable: Express.Multer.File) {
     try {
-      const response = await this.cloudinary.upload(fileTransferable);
-      return response;
+      return await this.cloudinary.upload(fileTransferable);
     } catch (error) {
-      console.log(error);
       throw new MicrosserviceException(
         `Erro ao realizar upload do arquivo:: ${error.message}`,
         HttpStatus.BAD_REQUEST,
@@ -24,7 +21,7 @@ export class MidiaService {
     return this.cloudinary.getFileUrl(fileId);
   }
 
-  async remove(id: number) {
-    return `This action removes a #${id} midia`;
+  async remove(id: string) {
+    return this.cloudinary.delete(id);
   }
 }

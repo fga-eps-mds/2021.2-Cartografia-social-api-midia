@@ -6,10 +6,13 @@ import { Cloudinary } from 'src/cloudinary/cloudinary';
 
 @Module({
   controllers: [MidiaController],
-  providers: [MidiaService, Cloudinary, {
-    provide: 'CONFIG',
-    useClass: ConfigService
-  },
+  providers: [
+    MidiaService,
+    Cloudinary,
+    {
+      provide: 'CONFIG',
+      useClass: ConfigService,
+    },
   ],
 })
-export class MidiaModule { }
+export class MidiaModule {}

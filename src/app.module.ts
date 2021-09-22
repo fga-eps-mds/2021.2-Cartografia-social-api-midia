@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { MidiaModule } from './midia/midia.module';
-import { Cloudinary } from './cloudinary/cloudinary';
 import { ConfigService } from './config/configuration';
 import { ConfigModule } from '@nestjs/config';
 
@@ -10,7 +9,8 @@ import { ConfigModule } from '@nestjs/config';
       envFilePath: ['.cloudinary.env'],
       isGlobal: true,
     }),
-    MidiaModule],
+    MidiaModule,
+  ],
   providers: [ConfigService],
 })
-export class AppModule { }
+export class AppModule {}
