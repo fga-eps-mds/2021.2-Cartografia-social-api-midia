@@ -2,28 +2,30 @@ version: '3.5'
 services:
   midia-debug:
     build: .
-    volumes: 
+    volumes:
       - .:/var/www/gateway
     restart: always
     hostname: midia
     command: npm run start:debug
-    ports: 
-      - 9228:9228
+    ports:
+      - 9225:9225
     env_file:
       - .env
+      - .cloudinary.env
     networks:
       - backend
   midia-dev:
     build: .
-    volumes: 
+    volumes:
       - .:/var/www/gateway
     restart: always
     hostname: midia
     env_file:
       - .env
+      - .cloudinary.env
     networks:
       - backend
-      
+
 networks:
   backend:
     external:

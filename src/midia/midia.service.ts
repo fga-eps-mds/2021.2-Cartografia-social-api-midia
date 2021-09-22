@@ -1,26 +1,27 @@
-import { Injectable } from '@nestjs/common';
-import { CreateMidiaDto } from './dto/create-midia.dto';
-import { UpdateMidiaDto } from './dto/update-midia.dto';
+import { HttpStatus, Injectable } from '@nestjs/common';
+import { Cloudinary } from '../cloudinary/cloudinary';
+import { MicrosserviceException } from '../commons/exceptions/MicrosserviceException';
 
 @Injectable()
 export class MidiaService {
-  create(createMidiaDto: CreateMidiaDto) {
-    return `This action adds a new midia ${createMidiaDto}`;
+  constructor(private cloudinary: Cloudinary) {}
+
+  async create(fileTransferable: Express.Multer.File) {
+    try {
+      return await this.cloudinary.upload(fileTransferable);
+    } catch (error) {
+      throw new MicrosserviceException(
+        `Erro ao realizar upload do arquivo:: ${error.message}`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
-  findAll() {
-    return `This action returns all midia`;
+  async getFileUrl(fileId: string) {
+    return this.cloudinary.getFileUrl(fileId);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} midia`;
-  }
-
-  update(id: number, updateMidiaDto: UpdateMidiaDto) {
-    return `This action updates a #${id} #${updateMidiaDto} midia`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} midia`;
+  async remove(id: string) {
+    return this.cloudinary.delete(id);
   }
 }
