@@ -11,9 +11,7 @@ export class MidiaController {
   async uploadFile(receivedFile: any) {
     const decodedFile = new ReceiveFileDto(receivedFile);
 
-    const response = await this.midiaService.create(decodedFile.file);
-
-    return response;
+    return this.midiaService.create(decodedFile.file);
   }
 
   @MessagePattern('removeMidia')
