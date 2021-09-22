@@ -18,4 +18,9 @@ export class MidiaController {
   remove(file: any) {
     return this.midiaService.remove(file.id);
   }
+
+  @MessagePattern('getUrl')
+  getUrl(id: string) {
+    return this.midiaService.getFileUrl(id);
+  }
 }

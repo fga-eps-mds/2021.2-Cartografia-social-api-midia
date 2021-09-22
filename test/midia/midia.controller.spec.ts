@@ -93,4 +93,19 @@ describe('MidiaController', () => {
 
     expect(await controller.remove(fileId)).toStrictEqual({ result: 'ok' });
   });
+
+  it('should get file url', async () => {
+    const url =
+      'http://res.cloudinary.com/nova-cartografia-social/image/upload/v1632082302/ixnhlev1gtysbsyrslcr.png';
+
+    const fileId = 'ixnhlev1gtysbsyrslcr';
+
+    const module = await customModule({
+      getFileUrl: () => url,
+    });
+
+    controller = module.get<MidiaController>(MidiaController);
+
+    expect(await controller.getUrl(fileId)).toStrictEqual(url);
+  });
 });
