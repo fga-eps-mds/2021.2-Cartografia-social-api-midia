@@ -19,28 +19,35 @@ Repositório do microsserviço de midias do projeto da Cartografia social
 
 Para a execução local do projeto serão necessárias as seguintes dependências:
 
-* [NodeJs](https://nodejs.org/en/)
-* [VSCode](https://code.visualstudio.com/) (Opcional)
+* [Npm](https://docs.npmjs.com/getting-started)
+* [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## [**Execução**](#Sumário)
 
-### Installation
+### Faça um clone do repositório
 
 ```bash
+$ git clone https://github.com/fga-eps-mds/2021.1-Cartografia-social-api-midia
+```
+
+### Instalando as dependências e Configurando variáveis de ambiente
+
+```bash
+$ cd 2021.1-Cartografia-social-api-midia
 $ npm install
 ```
 
-### Running the app
+O serviço é integrado com a solução [Cloudinary](https://cloudinary.com/documentation/developer_overview). É necessário ter, no diretório raiz, um arquivo com as configurações da ferramenta com o nome de .cloudinary.env. Utilize o .cloudinary.env.example para se basear na criação.
+
+### Executando a aplicação
+Escolha um dos ambientes para a execução
 
 ```bash
-# development
-$ npm run start
+# development ambient
+$ docker-compose up midia-dev
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# debug ambient
+$ docker-compose up midia-debug
 ```
 
 ### Test
