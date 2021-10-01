@@ -20,6 +20,7 @@ services:
       - .:/var/www/gateway
     restart: always
     hostname: midia
+    command: npm run start:dev
     env_file:
       - .env
       - .cloudinary.env
