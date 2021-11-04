@@ -37,6 +37,10 @@ export class Cloudinary {
   }
 
   async getFileUrl(fileId: string) {
-    return v2.url(fileId);
+    return v2.api.resource(fileId);
+  }
+
+  async getFileUrlCorrect(fileId: string) {
+    return v2.api.resource(fileId);
   }
 }
