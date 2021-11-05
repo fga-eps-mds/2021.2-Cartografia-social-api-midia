@@ -37,7 +37,19 @@ export class Cloudinary {
   }
 
   async getFileUrl(fileId: string) {
-    return v2.api.resource(fileId);
+    let response: any = null;
+
+    try {
+      response = await v2.api.resource(fileId);
+    } catch {
+      try {
+        response = await v2.api.resource(fileId, { resource_type: 'video' });
+      } catch {
+        response = await v2.api.resource(fileId, { resource_type: 'raw' });
+      }
+    }
+
+    return response;
   }
 
   async getFileUrlCorrect(fileId: string) {
