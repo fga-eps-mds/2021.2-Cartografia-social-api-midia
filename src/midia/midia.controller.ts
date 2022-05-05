@@ -1,35 +1,26 @@
 import { Controller } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import { MessagePattern } from '@nestjs/microservices';
 import { MidiaService } from './midia.service';
-import { CreateMidiaDto } from './dto/create-midia.dto';
-import { UpdateMidiaDto } from './dto/update-midia.dto';
+import { ReceiveFileDto } from './dto/receiveFile.dto';
 
 @Controller()
 export class MidiaController {
   constructor(private readonly midiaService: MidiaService) {}
 
-  @MessagePattern('createMidia')
-  create(@Payload() createMidiaDto: CreateMidiaDto) {
-    return this.midiaService.create(createMidiaDto);
-  }
+  @MessagePattern('uploadMidia')
+  async uploadFile(receivedFile: any) {
+    const decodedFile = new ReceiveFileDto(receivedFile);
 
-  @MessagePattern('findAllMidia')
-  findAll() {
-    return this.midiaService.findAll();
-  }
-
-  @MessagePattern('findOneMidia')
-  findOne(@Payload() id: number) {
-    return this.midiaService.findOne(id);
-  }
-
-  @MessagePattern('updateMidia')
-  update(@Payload() updateMidiaDto: UpdateMidiaDto) {
-    return this.midiaService.update(updateMidiaDto.id, updateMidiaDto);
+    return this.midiaService.create(decodedFile.file);
   }
 
   @MessagePattern('removeMidia')
-  remove(@Payload() id: number) {
-    return this.midiaService.remove(id);
+  remove(file: any) {
+    return this.midiaService.remove(file.id);
+  }
+
+  @MessagePattern('getUrl')
+  getUrl(id: string) {
+    return this.midiaService.getFileUrl(id);
   }
 }
